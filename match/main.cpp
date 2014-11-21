@@ -24,16 +24,16 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
 
 int main()
 {
-    const int TEST1_NCRITERIA = 7;
+    const int TEST1_NCRITERIA = 4;
     
-    int test1dist[TEST1_NCRITERIA] = {2, 2, 1, 3, 4, 1, 13};
+    int test1dist[TEST1_NCRITERIA] = {2, 4, 1, 13};
     
-    char test1w1[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"", "deranged", "NEFARIOUS", "half-witted", "robot", "plot", "have" };
+    char test1w1[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"mad", "deranged", "nerfarious", "have"};
     
-    char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"scientist", "robot", "PLOT", "assistant", "deranged", "Nefarious", "mad"};
+    char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"scientist", "robot", "PLOT", "mad"};
 
     
-    cout<<standardizeRules(test1dist, test1w1, test1w2,TEST1_NCRITERIA);
+    cout<<determineQuality(test1dist, test1w1, test1w2,TEST1_NCRITERIA, "The mad UCLA scientist unleashed a deranged evil giant robot.");
 }
 
 
@@ -86,7 +86,6 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
     }
     
     //take out entire rule if word contains a character that is not a letter
-    //problematic for words over length of numRules
     
     int t=0;
     while(t<numRules)
@@ -128,7 +127,6 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
     }
     
     //check words from different arrays now
-    //good now.. still check
 
     int i=0;
     int y=1;
@@ -251,7 +249,6 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
         cout<<distance[i]<<" ";
     cout<< "---> distance"<<endl;
     
-    
     for (int i=0; i<nRules; i++)
         cout<<word1[i]<<" ";
     cout<<"---> word1";
@@ -261,12 +258,15 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
     for(int i=0; i<nRules; i++)
         cout<<word2[i]<<" ";
     cout<<"---> word2"<<endl;
-   
     
     return numRules;
 }
 
-
+int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1],
+                     const char word2[][MAX_WORD_LENGTH+1], int nRules, const char document[])
+{
+    return 0;
+}
 
 
 
