@@ -301,55 +301,47 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
         }
     }
     
-    for(int i=0; i<nRules; i++)
-        cout<<distance[i]<<" ";
-    cout<< "---> distance"<<endl;
-    
-    
-    for (int i=0; i<nRules; i++)
-        cout<<word1[i]<<" ";
-    cout<<"---> word1";
-    
-    cout<<endl;
-    
-    for(int i=0; i<nRules; i++)
-        cout<<word2[i]<<" ";
-    cout<<"---> word2"<<endl<<endl<<endl;
-   
-    
 
     //take out entire rule if word contains a character that is not a letter
     //problematic for words over length of numRules 
     
-    for(int i=0; i<numRules; i++)
+    int t=0;
+    while(t<numRules)
     {
-        for(int j=0; j<MAX_WORD_LENGTH+1; j++)
+        int j=0;
+        while(j<MAX_WORD_LENGTH+1)
         {
-            if((word1[i][j]=='\0' || word2[i][j]=='\0')&&(isalpha(word1[i][j]) || isalpha(word2[i][j])))
+            if((word1[t][j]=='\0' || word2[t][j]=='\0')&&(isalpha(word1[t][j]) || isalpha(word2[t][j])))
             {
-                
+            
+            }else if (word1[t][j]=='\0' && word2[t][j]=='\0')
+            {
+                break;
             }
-            else if(!isalpha(word1[i][j]) || !isalpha(word2[i][j]))
+            else if(!isalpha(word1[t][j]) || !isalpha(word2[t][j]))
             {
-                for(int m=i; m<numRules; m++)
+                for(int m=t; m<numRules; m++)
                 {
                     distance[m]=distance[m+1];
                 }
                 
-                int p=i+1;
-                for (int k=i; k<numRules; k++)
+                int p=t+1;
+                for (int k=t; k<numRules; k++)
                     {
                         
                         strcpy(word1[k],word1[p]);
+                 
                         
                         strcpy(word2[k],word2[p]);
                         p++;
                     }
                 numRules--;
-                i--;
+                t--;
                 break;
             }
+            j++;
         }
+        t++;
     }
    
     
