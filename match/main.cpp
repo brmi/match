@@ -70,9 +70,37 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
         }
     }
     
+    //check all the word1's and see if any of them are equal
+    
+    for (int i=0; i<nRules; i++)
+    {
+        int j=1;
+        if(!strcmp(word1[i],word1[j])
+        {
+            numRules--;
+            for(int m=i; m<nRules; m++)
+            {
+                distance[m]=distance[m+1];
+            }
+            
+            int j=i+1;
+            while(j<nRules)
+            {
+                for (int k=i; k<nRules; k++)
+                {
+                    strcpy(word1[k],word1[j]);
+                    
+                    strcpy(word2[k],word2[j]);
+                    j++;
+                }
+            }
+        }
+    }
     
     //if two rules have the same w1 & w2 values, in either order, remove rule whose distance is less.
     //if same distance remove one
+    
+    
     
     int i=0;
     while(i<nRules)
@@ -115,7 +143,7 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
                 {
                     i++;
                     j=0;
-                    if(i==nRules-1)
+                }else if(i==nRules-1)
                     {
                         i=0;
                         //compare all the word1's
@@ -189,8 +217,6 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
             }
             j++;
         }
-    }
-    
     
 /*
     //take out entire rule if word is empty string
