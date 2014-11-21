@@ -30,7 +30,7 @@ int main()
     
     char test1w1[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"dog", "bat", "brm", "bat" };
     
-    char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"lion", "sea", "bat", "rate"};
+    char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"lion", "sea", "lion", "rate"};
 
     
     cout<<standardizeRules(test1dist, test1w1, test1w2,TEST1_NCRITERIA);
@@ -71,32 +71,155 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
     }
     
     //check all the word1's and see if any of them are equal
+    //this works
     
     for (int i=0; i<nRules; i++)
     {
         int j=1;
-        if(!strcmp(word1[i],word1[j])
+        if(!strcmp(word1[i],word1[j]))
         {
-            numRules--;
-            for(int m=i; m<nRules; m++)
+            if (distance[i]>distance[j]) //word1 distance> word2, remove word2
             {
-                distance[m]=distance[m+1];
-            }
-            
-            int j=i+1;
-            while(j<nRules)
-            {
-                for (int k=i; k<nRules; k++)
+                for(int m=j; m<nRules; m++)
                 {
-                    strcpy(word1[k],word1[j]);
-                    
-                    strcpy(word2[k],word2[j]);
-                    j++;
+                    distance[m]=distance[m+1];
+                }
+                
+                int m=j+1;
+                while(m<nRules)
+                {
+                    for (int k=j; k<nRules; k++)
+                    {
+                        strcpy(word1[k],word1[m]);
+                        
+                        strcpy(word2[k],word2[m]);
+                        m++;
+                    }
+                }
+                
+            }else   //word1 distance < word2, remove word1
+            {
+                for(int m=i; m<nRules; m++)
+                {
+                    distance[m]=distance[m+1];
+                }
+                
+                int m=i+1;
+                while(m<nRules)
+                {
+                    for (int k=i; k<nRules; k++)
+                    {
+                        strcpy(word1[k],word1[m]);
+                        
+                        strcpy(word2[k],word2[m]);
+                        m++;
+                    }
                 }
             }
+        }else
+        {
+            if(j==nRules-1)
+            {
+                j=0;
+                i++;
+            }
+            j++;
         }
     }
+
+//check all the word2's and see if any of them are equal
+
+    for (int i=0; i<nRules; i++)
+    {
+        int j=1;
+        if(!strcmp(word2[i],word2[j]))
+        {
+            if (distance[i]>distance[j]) //word1 distance> word2, remove word2
+            {
+                for(int m=j; m<nRules; m++)
+                {
+                    distance[m]=distance[m+1];
+                }
+                
+                int m=j+1;
+                while(m<nRules)
+                {
+                    for (int k=j; k<nRules; k++)
+                    {
+                        strcpy(word1[k],word1[m]);
+                        
+                        strcpy(word2[k],word2[m]);
+                        m++;
+                    }
+                }
+                
+            }else   //word1 distance < word2, remove word1
+            {
+                for(int m=i; m<nRules; m++)
+                {
+                    distance[m]=distance[m+1];
+                }
+                
+                int m=i+1;
+                while(m<nRules)
+                {
+                    for (int k=i; k<nRules; k++)
+                    {
+                        strcpy(word1[k],word1[m]);
+                        
+                        strcpy(word2[k],word2[m]);
+                        m++;
+                    }
+                }
+            }
+        }else
+        {
+            if(j==nRules-1)
+            {
+                j=0;
+                i++;
+            }
+            j++;
+        }
+       
+    }
+    for(int i=0; i<nRules; i++)
+        cout<<distance[i]<<" ";
+    cout<< " --> distance";
     
+    cout<<endl;
+    
+    for (int i=0; i<nRules; i++)
+        cout<<word1[i]<<" ";
+    cout<<" --> word1";
+    
+    cout<<endl;
+    
+    for(int i=0; i<nRules; i++)
+        cout<<word2[i]<<" ";
+    cout<<"---> word2"<<endl;
+     return 0;
+}
+
+
+
+ /*
+                int j=i+1;
+                while(j<nRules)
+                {
+                    for (int k=i; k<nRules; k++)
+                    {
+                        strcpy(word1[k],word1[j]);
+  
+                        strcpy(word2[k],word2[j]);
+                        j++;
+                    }
+            }
+        }
+           return numRules;
+    }
+
+ /*
     //if two rules have the same w1 & w2 values, in either order, remove rule whose distance is less.
     //if same distance remove one
     
@@ -218,7 +341,7 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
             j++;
         }
     
-/*
+
     //take out entire rule if word is empty string
     
     
@@ -265,8 +388,8 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
     
     return numRules;
 }
-*/
- 
+
+
     //take out entire rule if word contains a character that is not a letter
     
     for(int i=0; i<nRules; i++)
@@ -335,7 +458,7 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
 
     return numRules;
 }
-
+*/
 
 
 

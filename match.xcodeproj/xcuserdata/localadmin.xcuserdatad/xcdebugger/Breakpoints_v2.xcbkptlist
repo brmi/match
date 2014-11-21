@@ -42,13 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "match/main.cpp"
-            timestampString = "438239235.805682"
+            timestampString = "438241435.535301"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
-            landmarkName = "standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1], int nRules)"
-            landmarkType = "7">
+            startingLineNumber = "395"
+            endingLineNumber = "395">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -58,13 +56,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "match/main.cpp"
-            timestampString = "438239235.805682"
+            timestampString = "438241435.535301"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "251"
-            endingLineNumber = "251"
-            landmarkName = "standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1], int nRules)"
-            landmarkType = "7">
+            startingLineNumber = "402"
+            endingLineNumber = "402">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -74,13 +70,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "match/main.cpp"
-            timestampString = "438239235.805682"
+            timestampString = "438241435.535301"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
-            landmarkName = "standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1], int nRules)"
-            landmarkType = "7">
+            startingLineNumber = "396"
+            endingLineNumber = "396">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -90,13 +84,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "match/main.cpp"
-            timestampString = "438239235.805682"
+            timestampString = "438241435.535301"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "248"
-            endingLineNumber = "248"
-            landmarkName = "standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1], int nRules)"
-            landmarkType = "7">
+            startingLineNumber = "399"
+            endingLineNumber = "399">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -106,13 +98,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "match/main.cpp"
-            timestampString = "438239235.805682"
+            timestampString = "438241435.535301"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
-            landmarkName = "standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1], int nRules)"
-            landmarkType = "7">
+            startingLineNumber = "351"
+            endingLineNumber = "351">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -122,13 +112,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "match/main.cpp"
-            timestampString = "438239235.805682"
+            timestampString = "438241435.535301"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
-            landmarkName = "standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1], int nRules)"
-            landmarkType = "7">
+            startingLineNumber = "348"
+            endingLineNumber = "348">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -138,13 +126,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "match/main.cpp"
-            timestampString = "438239235.805682"
+            timestampString = "438241435.535301"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
-            landmarkName = "standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1], int nRules)"
-            landmarkType = "7">
+            startingLineNumber = "366"
+            endingLineNumber = "366">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -154,13 +140,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "match/main.cpp"
-            timestampString = "438238620.994382"
+            timestampString = "438241435.535301"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1], int nRules)"
-            landmarkType = "7">
+            startingLineNumber = "228"
+            endingLineNumber = "228">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -170,13 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "match/main.cpp"
-            timestampString = "438238961.671621"
+            timestampString = "438241435.535301"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1], int nRules)"
-            landmarkType = "7">
+            startingLineNumber = "265"
+            endingLineNumber = "265">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
