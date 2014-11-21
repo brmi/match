@@ -30,7 +30,7 @@ int main()
     
     char test1w1[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"b0m", "squeeb", "brm", "b!t" };
     
-    char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"lion", "sea", "lion", "brm"};
+    char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"lion", "SEA", "lion", "brm"};
 
     
     cout<<standardizeRules(test1dist, test1w1, test1w2,TEST1_NCRITERIA);
@@ -201,6 +201,8 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
        
     }
     
+   
+    
     //check words from different arrays now
     //this works
 
@@ -268,7 +270,8 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
             }
         i++;
         }
-
+    
+ 
     
     //take out entire rule if word is empty string
     //make sure stuff doesn't go out of index O:!!!
@@ -297,15 +300,17 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
             i--;
         }
     }
+   
     
 
     //take out entire rule if word contains a character that is not a letter
+    //problematic
     
     for(int i=0; i<numRules; i++)
     {
         for(int j=0; j<MAX_WORD_LENGTH+1; j++)
         {
-            if(word1[i][j]=='\0')
+            if(word1[i][j]=='\0' || word2[i][j]=='\0')
                 break;
             
             if(!isalpha(word1[i][j]) || !isalpha(word2[i][j]))
@@ -318,8 +323,7 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
                 int p=i+1;
                 for (int k=i; k<numRules; k++)
                     {
-                        if(p==numRules)
-                            break;
+                        
                         strcpy(word1[k],word1[p]);
                         
                         strcpy(word2[k],word2[p]);
@@ -330,6 +334,7 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
             }
         }
     }
+   
     
     
     //now I wanna transform every uppercase letter into lowercase
@@ -347,9 +352,8 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
     
     for(int i=0; i<nRules; i++)
         cout<<distance[i]<<" ";
-    cout<< "---> distance";
+    cout<< "---> distance"<<endl;
     
-    cout<<endl;
     
     for (int i=0; i<nRules; i++)
         cout<<word1[i]<<" ";
