@@ -28,7 +28,7 @@ int main()
     
     int test1dist[TEST1_NCRITERIA] = {2, 5, 0, 2};
     
-    char test1w1[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"afrbop", "afrbrtrt!", "brm", "b!t" };
+    char test1w1[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"afrbop", "rr", "brm", "b!t" };
     
     char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"swan", "SEA", "lion", "brm"};
 
