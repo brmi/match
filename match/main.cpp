@@ -26,9 +26,9 @@ int main()
 {
     const int TEST1_NCRITERIA = 4;
     
-    int test1dist[TEST1_NCRITERIA] = {2, 1, 0, 2};
+    int test1dist[TEST1_NCRITERIA] = {2, 5, 0, 2};
     
-    char test1w1[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"", "bat", "brm", "b!t" };
+    char test1w1[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"b0m", "squeeb", "brm", "b!t" };
     
     char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"lion", "sea", "lion", "brm"};
 
@@ -297,7 +297,6 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
             i--;
         }
     }
-
     
 
     //take out entire rule if word contains a character that is not a letter
@@ -319,13 +318,15 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
                 int p=i+1;
                 for (int k=i; k<numRules; k++)
                     {
+                        if(p==numRules)
+                            break;
                         strcpy(word1[k],word1[p]);
                         
                         strcpy(word2[k],word2[p]);
                         p++;
                     }
                 numRules--;
-                break;
+                i--;
             }
         }
     }
