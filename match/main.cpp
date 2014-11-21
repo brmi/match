@@ -28,9 +28,9 @@ int main()
     
     int test1dist[TEST1_NCRITERIA] = {2, 5, 0, 2};
     
-    char test1w1[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"b0m", "squeeb", "brm", "b!t" };
+    char test1w1[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"afrbop", "afrbrtrt!", "brm", "b!t" };
     
-    char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"lion", "SEA", "lion", "brm"};
+    char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"swan", "SEA", "lion", "brm"};
 
     
     cout<<standardizeRules(test1dist, test1w1, test1w2,TEST1_NCRITERIA);
@@ -300,20 +300,36 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
             i--;
         }
     }
+    
+    for(int i=0; i<nRules; i++)
+        cout<<distance[i]<<" ";
+    cout<< "---> distance"<<endl;
+    
+    
+    for (int i=0; i<nRules; i++)
+        cout<<word1[i]<<" ";
+    cout<<"---> word1";
+    
+    cout<<endl;
+    
+    for(int i=0; i<nRules; i++)
+        cout<<word2[i]<<" ";
+    cout<<"---> word2"<<endl<<endl<<endl;
    
     
 
     //take out entire rule if word contains a character that is not a letter
-    //problematic
+    //problematic for words over length of numRules 
     
     for(int i=0; i<numRules; i++)
     {
         for(int j=0; j<MAX_WORD_LENGTH+1; j++)
         {
-            if(word1[i][j]=='\0' || word2[i][j]=='\0')
-                break;
-            
-            if(!isalpha(word1[i][j]) || !isalpha(word2[i][j]))
+            if((word1[i][j]=='\0' || word2[i][j]=='\0')&&(isalpha(word1[i][j]) || isalpha(word2[i][j])))
+            {
+                
+            }
+            else if(!isalpha(word1[i][j]) || !isalpha(word2[i][j]))
             {
                 for(int m=i; m<numRules; m++)
                 {
@@ -331,6 +347,7 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
                     }
                 numRules--;
                 i--;
+                break;
             }
         }
     }
