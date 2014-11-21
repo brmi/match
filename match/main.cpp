@@ -87,28 +87,22 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
     
     for(int i=0; i<nRules; i++)
     {
-        for(int j=0; j<MAX_WORD_LENGTH+1; j++)
+        if(!strcmp(word1[i],"")||!strcmp(word2[i],""))
         {
-            //if(word1[i][j]=='\0'||word2[i][j]=='\0')
-            if(!strcmp(word1[i],"")||!strcmp(word2[i],""))
+            numRules--;
+            for(int m=i; m<nRules; m++)
             {
-                numRules--;
-                for(int m=i; m<nRules; m++)
-                {
-                    distance[m]=distance[m+1];
-                }
+                distance[m]=distance[m+1];
+            }
 
-                int p=i+1;
-                for (int k=i; k<nRules; k++)
-                {
-                    strcpy(word1[k],word1[p]);
-                    
-                    strcpy(word2[k],word2[p]);
-                    p++;
-                }
-                break;
-            }else
-                break;
+            int p=i+1;
+            for (int k=i; k<nRules; k++)
+            {
+                strcpy(word1[k],word1[p]);
+                
+                strcpy(word2[k],word2[p]);
+                p++;
+            }
         }
     }
 
