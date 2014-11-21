@@ -28,7 +28,7 @@ int main()
     
     int test1dist[TEST1_NCRITERIA] = {2, 2, 1, 3, 4, 1, 13};
     
-    char test1w1[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"mad", "deranged", "NEFARIOUS", "half-witted", "robot", "plot", "have" };
+    char test1w1[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"", "deranged", "NEFARIOUS", "half-witted", "robot", "plot", "have" };
     
     char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"scientist", "robot", "PLOT", "assistant", "deranged", "Nefarious", "mad"};
 
@@ -72,9 +72,6 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
         }
     }
     
-  
-    
-    
     //now I wanna transform every uppercase letter into lowercase
     //going to go through every element of the 2d array
     
@@ -87,9 +84,6 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
             word2[i][j]=tolower(word2[i][j]);
         }
     }
-    
-    
-    
     
     //take out entire rule if word contains a character that is not a letter
     //problematic for words over length of numRules
@@ -132,27 +126,6 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
         }
         t++;
     }
-    
-    
-    
-    cout<<endl<<" after char check"<<endl;
-    
-    for(int i=0; i<nRules; i++)
-        cout<<distance[i]<<" ";
-    cout<< "---> distance"<<endl;
-    
-    
-    for (int i=0; i<nRules; i++)
-        cout<<word1[i]<<" ";
-    cout<<"---> word1";
-    
-    cout<<endl;
-    
-    for(int i=0; i<nRules; i++)
-        cout<<word2[i]<<" ";
-    cout<<"---> word2"<<endl;
-    
-    
     
     //check words from different arrays now
     //good now.. still check
@@ -222,43 +195,11 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
                 }
             }
                 if(removew1==1)
-                {  cout<<endl<<" after remove w1"<<endl;
-                    
-                    for(int i=0; i<nRules; i++)
-                        cout<<distance[i]<<" ";
-                    cout<< "---> distance"<<endl;
-                    
-                    
-                    
-                    for (int i=0; i<nRules; i++)
-                        cout<<word1[i]<<" ";
-                    cout<<"---> word1";
-                    
-                    cout<<endl;
-                    
-                    for(int i=0; i<nRules; i++)
-                        cout<<word2[i]<<" ";
-                    cout<<"---> word2"<<endl;
+                {
                     break;
                 }
                 if(removew2==1)
                 {
-                    cout<<endl<<" after remove w2"<<endl;
-                    
-                    for(int i=0; i<nRules; i++)
-                        cout<<distance[i]<<" ";
-                    cout<< "---> distance"<<endl;
-                    
-                    
-                    for (int i=0; i<nRules; i++)
-                        cout<<word1[i]<<" ";
-                    cout<<"---> word1";
-                    
-                    cout<<endl;
-                    
-                    for(int i=0; i<nRules; i++)
-                        cout<<word2[i]<<" ";
-                    cout<<"---> word2"<<endl;
                     break;
                 }
                 y++;
@@ -276,24 +217,6 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
             removew2=0;
         }
     }
-    
-    cout<<endl<<" after array check"<<endl;
-    
-    for(int i=0; i<nRules; i++)
-        cout<<distance[i]<<" ";
-    cout<< "---> distance"<<endl;
-    
-    
-    for (int i=0; i<nRules; i++)
-        cout<<word1[i]<<" ";
-    cout<<"---> word1";
-    
-    cout<<endl;
-    
-    for(int i=0; i<nRules; i++)
-        cout<<word2[i]<<" ";
-    cout<<"---> word2"<<endl;
- 
     
     //take out entire rule if word is empty string
     //make sure stuff doesn't go out of index O:!!!
@@ -323,7 +246,6 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
         }
     }
     
-    cout<<endl<<" after empty string"<<endl;
     
     for(int i=0; i<nRules; i++)
         cout<<distance[i]<<" ";
