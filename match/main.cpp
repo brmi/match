@@ -24,13 +24,13 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
 
 int main()
 {
-    const int TEST1_NCRITERIA = 4;
+    const int TEST1_NCRITERIA = 7;
     
-    int test1dist[TEST1_NCRITERIA] = {2, 5, 0, 2};
+    int test1dist[TEST1_NCRITERIA] = {2, 4, 1, 3, 2, 1, 13};
     
-    char test1w1[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"afrbop", "rr", "brm", "b!t" };
+    char test1w1[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"mad", "deranged", "NEFARIOUS", "half-witted", "robot", "plot", "have" };
     
-    char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"swan", "SEA", "lion", "brm"};
+    char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"scientist", "robot", "PLOT", "assistant", "deranged", "Nefarious", "mad"};
 
     
     cout<<standardizeRules(test1dist, test1w1, test1w2,TEST1_NCRITERIA);
@@ -72,7 +72,23 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
         }
     }
     
+  
     
+    
+    //now I wanna transform every uppercase letter into lowercase
+    //going to go through every element of the 2d array
+    
+    
+    for (int i=0; i<numRules; i++)
+    {
+        for (int j=0; j<MAX_WORD_LENGTH+1; j++)
+        {
+            word1[i][j]=tolower(word1[i][j]);
+            word2[i][j]=tolower(word2[i][j]);
+        }
+    }
+    
+  /*
     
     //check all the word1's and see if any of them are equal
     //this works
@@ -137,6 +153,8 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
         }
     }
     
+    
+    
 //check all the word2's and see if any of them are equal
 //this works
   
@@ -200,41 +218,44 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
         }
        
     }
+
+   */
     
-   
     
     //check words from different arrays now
-    //this works
+    //problem
 
     int i=0;
-    int y=0;
+    int y=1;
+    int removew1=0; //counter if it removed word1
+    int removew2=0;  //counter if it removed word2
     
     while(i<numRules)
     {
         while(y<numRules)
         {
-        if(!strcmp(word1[i],word2[y])) //if words are equal
+        if((!strcmp(word1[i],word1[y]) || !strcmp(word1[i],word2[y])) && (!strcmp(word2[i],word2[y])|| !strcmp(word2[i],word1[y]))) //if words are equal
         {
             if(distance[i]>=distance[y]) //if distance of word1 rule > distance of word2 rule
             {
                 
                 //remove word2 rule
                 
-                int p=i+1;
-                for (int k=i; k<numRules; k++)
+                int p=y+1;
+                for (int k=y; k<numRules; k++)
                 {
-                    strcpy(word1[p],word1[p+1]);
+                    strcpy(word1[k],word1[p]);
                     
-                    strcpy(word2[p],word2[p+1]);
+                    strcpy(word2[k],word2[p]);
                     p++;
                 }
                 
-                for(int m=j; m<numRules; m++)
+                for(int m=y; m<numRules; m++)
                 {
                     distance[m]=distance[m+1];
                 }
                 numRules--;
-                
+                removew2=1;
             }else
             {   //remove word1 rule
                 int p=i+1;
@@ -243,15 +264,14 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
                     strcpy(word1[k],word1[p]);
                     
                     strcpy(word2[k],word2[p]);
-                    
-                    for(int m=i; m<nRules; m++)
-                    {
-                        distance[m]=distance[m+1];
-                    }
-                    
                     p++;
                 }
+                for(int m=i; m<numRules; m++)
+                {
+                    distance[m]=distance[m+1];
+                }
                 numRules--;
+                removew1=1;
             }
         }else
             {
@@ -259,18 +279,50 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
                 {
                     if(i==numRules-1)
                     {
+                        i++;
                         break;
                     }
                     i++;
-                    y=0;
+                    y=i+1;
                     break;
                 }
             }
+                if(removew1==1)
+                    break;
+                if(removew2==1)
+                    break;
                 y++;
             }
-        i++;
+        if(removew1==1)
+        {
+            i=0;
+            y=0;
+            removew1=0;
         }
+        else if(removew2==1)
+        {
+            i++;
+            y=0;
+            removew2=0;
+        }
+    }
     
+    cout<<endl<<" after array check"<<endl;
+    
+    for(int i=0; i<nRules; i++)
+        cout<<distance[i]<<" ";
+    cout<< "---> distance"<<endl;
+    
+    
+    for (int i=0; i<nRules; i++)
+        cout<<word1[i]<<" ";
+    cout<<"---> word1";
+    
+    cout<<endl;
+    
+    for(int i=0; i<nRules; i++)
+        cout<<word2[i]<<" ";
+    cout<<"---> word2"<<endl;
  
     
     //take out entire rule if word is empty string
@@ -300,6 +352,23 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
             i--;
         }
     }
+    
+    cout<<endl<<" after empy string"<<endl;
+    
+    for(int i=0; i<nRules; i++)
+        cout<<distance[i]<<" ";
+    cout<< "---> distance"<<endl;
+    
+    
+    for (int i=0; i<nRules; i++)
+        cout<<word1[i]<<" ";
+    cout<<"---> word1";
+    
+    cout<<endl;
+    
+    for(int i=0; i<nRules; i++)
+        cout<<word2[i]<<" ";
+    cout<<"---> word2"<<endl;
     
 
     //take out entire rule if word contains a character that is not a letter
@@ -346,18 +415,7 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
    
     
     
-    //now I wanna transform every uppercase letter into lowercase
-    //going to go through every element of the 2d array
-    
-    
-    for (int i=0; i<numRules; i++)
-    {
-        for (int j=0; j<MAX_WORD_LENGTH+1; j++)
-        {
-            word1[i][j]=tolower(word1[i][j]);
-            word2[i][j]=tolower(word2[i][j]);
-        }
-    }
+    cout<<endl<<" after char check"<<endl;
     
     for(int i=0; i<nRules; i++)
         cout<<distance[i]<<" ";
