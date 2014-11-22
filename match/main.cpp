@@ -379,12 +379,23 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     
     //check if word1 is in doc, if it is, check to see if word2 is distance or less after it
     
+    /*
     for(int i=0; i<=row; i++)
     {
-        
+        if(
     }
+    */
     
+    int j=0;
+    int q=0;
+    int match=0;
     
+    for (int i=0; i<=row; i++)
+    {
+        if(!strcmp(finalDoc[q],word1[j]) && (distancebtwn)
+        {
+           
+            
     
     
 
