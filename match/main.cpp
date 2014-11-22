@@ -37,23 +37,25 @@ int main()
         "scientist", "robot",    "plot",      "mad"
     };
     
-    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
-                            "The mad UCLA scientist unleashed a deranged evil giant robot.") == 2);
-    
-    cout<<endl<<endl;
-    
+    //assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            //"The mad UCLA scientist unleashed a deranged evil giant robot.") == 2);
+
     
     assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
                            "The mad UCLA scientist unleashed    a deranged robot.") == 2);
-    /*
+
+   
     assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,"**** 2014 ****") == 0);
-    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,"  That plot: NEFARIOUS!") == 1);
     
+    
+    //assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,"  That plot: NEFARIOUS!") == 1);
+    
+    /*
     assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
                             "deranged deranged robot deranged robot robot") == 1);
    
     assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA, "Two mad scientists suffer from deranged-robot fever.") == 0);
-     */
+    */
     
     cout << "All tests succeeded" << endl;
      
@@ -274,9 +276,10 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
                      const char word2[][MAX_WORD_LENGTH+1], int nRules, const char document[])
 {
     char newdoc[MAX_WORD_LENGTH_DOC +1];
+    char finalDoc[MAX_WORD_LENGTH_DOC][MAX_WORD_LENGTH_DOC+1]; //put words into this doc
+    int length=strlen(document);
     
-    
-    
+
     for(int i=0; i<MAX_WORD_LENGTH_DOC+1; i++)
     {
         if(document[i]=='\0')
@@ -286,7 +289,7 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     
     //now change elements in array so there are only alphabetic characters and spaces
     
-    int length=strlen(newdoc);
+    
     
    //want to remove characters that are not alphabetic
     
@@ -353,16 +356,26 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
             break;
     }
     
-    char finalDoc[MAX_WORD_LENGTH_DOC][MAX_WORD_LENGTH_DOC+1]; //put words into this doc
+    
     
     //go through each character, if it gets to a space and the word before was a letter, that is a word.
     //put that word into new 2d array, holding c strings.
-    //problem... O:! .. is new doc not empty next time program enters function?
+    //problem... O:! .. final doc has old stuff in it!!! wtf man!!!
   
     int alphaBefore=0; //this variable is to check that the character before is a letter
     
     int row=0;      //row of final doc
     int indexf=0;    //index of final doc
+    
+    
+    while(row<MAX_WORD_LENGTH_DOC+1)
+    {
+        if(!strcmp(finalDoc[row],""))
+            break;
+        strcpy(finalDoc[row],"");
+        row++;
+        
+    }
     
     while(h<length)
     {
@@ -376,7 +389,7 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
             alphaBefore=1;
         }else if(alphaBefore==1)
         {
-            row++;
+            //row++;
             indexf=0;
             h++;
         }
