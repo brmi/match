@@ -9,6 +9,7 @@
 #include <iostream>
 #include <cstring>
 #include <cctype>
+#include <cassert>
 #define _CRT_SECURE_NO_WARNINGS
 using namespace std;
 
@@ -26,15 +27,30 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
 int main()
 {
     const int TEST1_NCRITERIA = 4;
+    int test1dist[TEST1_NCRITERIA] = {
+        2,           4,          1,           13
+    };
+    char test1w1[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {
+        "mad",       "deranged", "nefarious", "have"
+    };
+    char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {
+        "scientist", "robot",    "plot",      "mad"
+    };
+    /*
     
-    int test1dist[TEST1_NCRITERIA] = {2, 4, 1, 13};
-    
-    char test1w1[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"mad", "deranged", "nefarious", "have"};
-    
-    char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"scientist", "robot", "plot", "mad"};
-
-    
-    cout<<determineQuality(test1dist, test1w1, test1w2,TEST1_NCRITERIA, "Two mad scientists suffer from deranged-robot fever.");
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            "The mad UCLA scientist unleashed a deranged evil giant robot.") == 2);
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            "The mad UCLA scientist unleashed    a deranged robot.") == 2);
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            "**** 2014 ****") == 0);
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                           "  That plot: NEFARIOUS!") == 1);
+    */
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            "deranged deranged robot deranged robot robot") == 1);
+   // assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA, "Two mad scientists suffer from deranged-robot fever.") == 0);
+    cout << "All tests succeeded" << endl;
 }
 
 
@@ -245,7 +261,7 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
         }
     }
     
-   
+   /*
     for(int i=0; i<nRules; i++)
         cout<<distance[i]<<" ";
     cout<< "---> distance"<<endl;
@@ -259,6 +275,7 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
     for(int i=0; i<nRules; i++)
         cout<<word2[i]<<" ";
     cout<<"---> word2"<<endl;
+    */
     
     
     return numRules;
@@ -273,14 +290,18 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     {
         newdoc[i]=document[i];
     }
+    /*
     
     for(int i=0; newdoc[i]!='\0'; i++) //copied document into new doc I can modify
     {
         cout<<newdoc[i];
         
     }
+     
     
     cout<<endl;
+     
+     */
     //now change elements in array so there are only alphabetic characters and spaces
     
     int length=strlen(newdoc);
@@ -366,13 +387,13 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
             h++;
         }
     }
-    
+    /*
     for(int i=0; i<=row; i++)
     {
         cout<<finalDoc[i]<<" ";
     }
     cout<<endl;
- 
+ */
     
     //now just compare distances! and look for match rules c:
     //work with finalDoc
