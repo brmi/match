@@ -13,6 +13,7 @@
 using namespace std;
 
 const int MAX_WORD_LENGTH=20;
+const int MAX_WORD_LENGTH_DOC=200;
 
 int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2[][MAX_WORD_LENGTH+1],
                      int nRules);
@@ -33,7 +34,7 @@ int main()
     char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"scientist", "robot", "PLOT", "mad"};
 
     
-    cout<<determineQuality(test1dist, test1w1, test1w2,TEST1_NCRITERIA, "The mad UCLA scientist unleashed a deranged evil giant robot.");
+    cout<<determineQuality(test1dist, test1w1, test1w2,TEST1_NCRITERIA, " !!The m!d UCLA.");
 }
 
 
@@ -244,7 +245,7 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
         }
     }
     
-    
+   
     for(int i=0; i<nRules; i++)
         cout<<distance[i]<<" ";
     cout<< "---> distance"<<endl;
@@ -259,13 +260,109 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
         cout<<word2[i]<<" ";
     cout<<"---> word2"<<endl;
     
+    
     return numRules;
+
 }
 
 int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1],
                      const char word2[][MAX_WORD_LENGTH+1], int nRules, const char document[])
 {
+    char newdoc[MAX_WORD_LENGTH_DOC +1];
+    for(int i=0; i<MAX_WORD_LENGTH_DOC+1; i++)
+    {
+        newdoc[i]=document[i];
+    }
+    
+    for(int i=0; newdoc[i]!='\0'; i++) //copied document into new doc I can modify
+    {
+        cout<<newdoc[i];
+        
+    }
+    
+
+    
+    cout<<endl;
+    //now change elements in array so there are only alphabetic characters and spaces
+    
+    int length=strlen(newdoc);
+    
+   //want to remove characters that are not alphabetic
+    
+    int t=0;
+    while(t<length)
+    {
+        
+    if (newdoc[t]=='\0'|| newdoc[t]==' ')
+        {
+        }
+        else if(!isalpha(newdoc[t]))
+        {
+            int p=t+1;
+            for (int k=t; k<length; k++)
+            {
+                newdoc[k]=newdoc[p];
+                p++;
+            }
+            
+            t--;
+        }
+        t++;
+    }
+    
+    //now I wanna transform every uppercase letter into lowercase
+    //going to go through every element of the 2d array
+    
+    
+    for (int i=0; i<length; i++)
+    {
+        newdoc[i]=tolower(newdoc[i]);
+        
+    }
+    
+    for(int i=0; newdoc[i]!='\0'; i++) //copied document into new doc I can modify
+    {
+        cout<<newdoc[i];
+        
+    }
+    
+    cout<<endl;
+    
+    //now want to put words into new array, one word at a time.
+    
+    
+    int h=0;        //first wanna ignore any spaces in the beginning
+    while(h<length)
+    {
+        if(newdoc[h]==' ')
+            h++;
+        else
+            break;
+    }
+    
+    char finalDoc[MAX_WORD_LENGTH_DOC+1][MAX_WORD_LENGTH_DOC+1]; //put words into this doc
+    
+    //go through each character, if it gets to a space and the word before was a letter, that is a word.
+    //put that word into new 2d array, holding c strings.
+    //if going through and see character, strcat this to finaldoc... when see space, go to next index of final doc.
+  
+    int alphaBefore=1; //this variable is to check that the character before is a letter
+    
+    int row=0; //row of final doc
+    
+    while(h<length)
+    {
+        if(newdoc[h]!=' ')
+        {
+            strcat(finalDoc[row], "dog");
+        }
+    }
+    
+    
+
+    
     return 0;
+    
 }
 
 
