@@ -36,21 +36,27 @@ int main()
     char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {
         "scientist", "robot",    "plot",      "mad"
     };
-    /*
     
     assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
                             "The mad UCLA scientist unleashed a deranged evil giant robot.") == 2);
+    
+    cout<<endl<<endl;
+    
+    
     assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
-                            "The mad UCLA scientist unleashed    a deranged robot.") == 2);
-    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
-                            "**** 2014 ****") == 0);
-    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
-                           "  That plot: NEFARIOUS!") == 1);
-    */
+                           "The mad UCLA scientist unleashed    a deranged robot.") == 2);
+    /*
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,"**** 2014 ****") == 0);
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,"  That plot: NEFARIOUS!") == 1);
+    
     assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
                             "deranged deranged robot deranged robot robot") == 1);
-   // assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA, "Two mad scientists suffer from deranged-robot fever.") == 0);
+   
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA, "Two mad scientists suffer from deranged-robot fever.") == 0);
+     */
+    
     cout << "All tests succeeded" << endl;
+     
 }
 
 
@@ -260,24 +266,6 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
             i--;
         }
     }
-    
-   /*
-    for(int i=0; i<nRules; i++)
-        cout<<distance[i]<<" ";
-    cout<< "---> distance"<<endl;
-    
-    for (int i=0; i<nRules; i++)
-        cout<<word1[i]<<" ";
-    cout<<"---> word1";
-    
-    cout<<endl;
-    
-    for(int i=0; i<nRules; i++)
-        cout<<word2[i]<<" ";
-    cout<<"---> word2"<<endl;
-    */
-    
-    
     return numRules;
 
 }
@@ -286,22 +274,16 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
                      const char word2[][MAX_WORD_LENGTH+1], int nRules, const char document[])
 {
     char newdoc[MAX_WORD_LENGTH_DOC +1];
+    
     for(int i=0; i<MAX_WORD_LENGTH_DOC+1; i++)
     {
+        if(document[i]=='\0')
+            break;
         newdoc[i]=document[i];
     }
-    /*
     
-    for(int i=0; newdoc[i]!='\0'; i++) //copied document into new doc I can modify
-    {
-        cout<<newdoc[i];
-        
-    }
-     
     
-    cout<<endl;
-     
-     */
+    
     //now change elements in array so there are only alphabetic characters and spaces
     
     int length=strlen(newdoc);
@@ -311,12 +293,23 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     int t=0;
     while(t<length)
     {
-        
-    if (newdoc[t]=='\0'|| newdoc[t]==' ')
+       if(newdoc[t]=='\0')
+           break;
+      if(t==length)
+      {
+          break;
+      }
+    if (newdoc[t]==' ')
         {
+            if(t==length)
+            {
+                break;
+            }
         }
         else if(!isalpha(newdoc[t]))
         {
+            if(t==length-1)
+                break;
             int p=t+1;
             for (int k=t; k<length; k++)
             {
@@ -328,6 +321,9 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
         }
         t++;
     }
+ 
+
+    
     
     //now I wanna transform every uppercase letter into lowercase
     //going to go through every element of the 2d array
@@ -339,15 +335,12 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
         
     }
     
-    /*
-    for(int i=0; newdoc[i]!='\0'; i++) //copied document into new doc I can modify
+    for(int i=0; i<length; i++)
     {
-        cout<<newdoc[i];
-        
+        cerr<<newdoc[i];
     }
     
-    cout<<endl;
-    */
+    
     //now want to put words into new array, one word at a time.
     
     
@@ -360,10 +353,11 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
             break;
     }
     
-    char finalDoc[MAX_WORD_LENGTH_DOC+1][MAX_WORD_LENGTH_DOC+1]; //put words into this doc
+    char finalDoc[MAX_WORD_LENGTH_DOC][MAX_WORD_LENGTH_DOC+1]; //put words into this doc
     
     //go through each character, if it gets to a space and the word before was a letter, that is a word.
     //put that word into new 2d array, holding c strings.
+    //problem... O:! .. is new doc not empty next time program enters function?
   
     int alphaBefore=0; //this variable is to check that the character before is a letter
     
@@ -387,13 +381,13 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
             h++;
         }
     }
-    /*
-    for(int i=0; i<=row; i++)
+    
+    
+    for(int i=0; i<row; i++)
     {
-        cout<<finalDoc[i]<<" ";
+        cerr<<finalDoc[i]<<" ";
     }
-    cout<<endl;
- */
+    
     
     //now just compare distances! and look for match rules c:
     //work with finalDoc
@@ -447,6 +441,7 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
 
     i=0;
     q=0;
+    distancebtwn=0;
     
     if (match==0)
     {
@@ -489,9 +484,35 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
             }
         }
     }else
-        return match;
-
+    {
+        //wanna put newdoc & finaldoc back to empty doc...
+        
+        row=0;      //row of final doc
+        indexf=0;    //index of final doc
+        
+        while(row<MAX_WORD_LENGTH_DOC+1)
+        {
+            if(!strcmp(finalDoc[row],""))
+                break;
+            finalDoc[row][indexf]='\0';
+            row++;
+            
+        }
+        
+        
+        row=0;
+        
+        while(row<length)
+        {
+            if(newdoc[row]=='\0')
+                break;
+            newdoc[row]='\0';
+            row++;
+        }
     
+       return match;
+    }
+
 return match;
     
 }
