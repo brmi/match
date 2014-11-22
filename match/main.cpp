@@ -31,10 +31,10 @@ int main()
     
     char test1w1[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"mad", "deranged", "nerfarious", "have"};
     
-    char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"scientist", "robot", "PLOT", "mad"};
+    char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"scientist", "robot", "plot", "mad"};
 
     
-    cout<<determineQuality(test1dist, test1w1, test1w2,TEST1_NCRITERIA, " !!The m!d UCLA.");
+    cout<<determineQuality(test1dist, test1w1, test1w2,TEST1_NCRITERIA, "  That plot: NEFARIOUS!");
 }
 
 
@@ -318,6 +318,7 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
         
     }
     
+    /*
     for(int i=0; newdoc[i]!='\0'; i++) //copied document into new doc I can modify
     {
         cout<<newdoc[i];
@@ -325,7 +326,7 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     }
     
     cout<<endl;
-    
+    */
     //now want to put words into new array, one word at a time.
     
     
@@ -371,39 +372,59 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
         cout<<finalDoc[i]<<" ";
     }
     cout<<endl;
+ 
     
     //now just compare distances! and look for match rules c:
     //work with finalDoc
     
     int distancebtwn=0; //distance between w1 and w2
     
-    //check if word1 is in doc, if it is, check to see if word2 is distance or less after it
-    
-    /*
-    for(int i=0; i<=row; i++)
-    {
-        if(
-    }
-    */
-    
-    int j=0;
-    int q=0;
+    int q=0;    //which rule i'm on
+    int i=0;
     int match=0;
     
-    for (int i=0; i<=row; i++)
+    while(i<=row)
     {
-        if(!strcmp(finalDoc[q],word1[j]) && (distancebtwn)
+       //check if word1 is in doc, if it is, check to see if word2 is distance or less after it
+        //w2 appears distance or fewer words before or after w1
+        
+      
+        if(!strcmp(word1[q],finalDoc[i]))
         {
+            i++;
+            distancebtwn++;
+            while(q<=row)
+            {
+                if(!strcmp(word2[q],finalDoc[i]))
+                {
+                    if(distancebtwn>0 && distancebtwn<=distance[q])
+                    {
+                        match++;
+                        q++;
+                        i++;
+                        distancebtwn=0;
+                        break;
+                    }
+                }else
+                {
+                    i++;
+                    distancebtwn++;
+                }
+            }
+        }else
+            {
+                i++;
+                if(i>row && q!=length)
+                {
+                    i=0;
+                    q++;
+                }
+            }
+        }
            
-            
-    
-    
-
-    
-    return 0;
+return match;
     
 }
-
 
 
 
