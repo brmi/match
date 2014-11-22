@@ -344,19 +344,36 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     
     //go through each character, if it gets to a space and the word before was a letter, that is a word.
     //put that word into new 2d array, holding c strings.
-    //if going through and see character, strcat this to finaldoc... when see space, go to next index of final doc.
   
-    int alphaBefore=1; //this variable is to check that the character before is a letter
+    int alphaBefore=0; //this variable is to check that the character before is a letter
     
-    int row=0; //row of final doc
+    int row=0;      //row of final doc
+    int indexf=0;    //index of final doc
     
     while(h<length)
     {
-        if(newdoc[h]!=' ')
+        if(isalpha(newdoc[h]))
         {
-            strcat(finalDoc[row], "dog");
+           
+            finalDoc[row][indexf]=newdoc[h];
+            indexf++;
+            h++;
+            alphaBefore=1;
+        }else if(alphaBefore==1)
+        {
+            row++;
+            indexf=0;
+            h++;
         }
     }
+    
+    for(int i=0; i<length; i++)
+    {
+        cout<<finalDoc[i]<<" ";
+    }
+    cout<<endl;
+    
+    //now just compare distances! and look for match rules c:
     
     
 
