@@ -296,8 +296,6 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     int t=0;
     while(t<length)
     {
-       if(newdoc[t]=='\0')
-           break;
       if(t==length)
       {
           break;
@@ -311,16 +309,7 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
         }
         else if(!isalpha(newdoc[t]))
         {
-            if(t==length-1)
-                break;
-            int p=t+1;
-            for (int k=t; k<length; k++)
-            {
-                newdoc[k]=newdoc[p];
-                p++;
-            }
-            
-            t--;
+          newdoc[t]='\0';
         }
         t++;
     }
@@ -334,6 +323,8 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     
     for (int i=0; i<length; i++)
     {
+        if(newdoc[i]=='\0')
+            break;
         newdoc[i]=tolower(newdoc[i]);
         
     }
@@ -370,8 +361,6 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     
     while(row<MAX_WORD_LENGTH_DOC+1)
     {
-        if(!strcmp(finalDoc[row],""))
-            break;
         strcpy(finalDoc[row],"");
         row++;
         
@@ -389,7 +378,7 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
             alphaBefore=1;
         }else if(alphaBefore==1)
         {
-            //row++;
+            row++;
             indexf=0;
             h++;
         }
