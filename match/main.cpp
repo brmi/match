@@ -280,8 +280,6 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
         
     }
     
-
-    
     cout<<endl;
     //now change elements in array so there are only alphabetic characters and spaces
     
@@ -352,9 +350,10 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     
     while(h<length)
     {
+        if(newdoc[h]=='\0')
+            break;
         if(isalpha(newdoc[h]))
         {
-           
             finalDoc[row][indexf]=newdoc[h];
             indexf++;
             h++;
@@ -367,13 +366,25 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
         }
     }
     
-    for(int i=0; i<length; i++)
+    for(int i=0; i<=row; i++)
     {
         cout<<finalDoc[i]<<" ";
     }
     cout<<endl;
     
     //now just compare distances! and look for match rules c:
+    //work with finalDoc
+    
+    int distancebtwn=0; //distance between w1 and w2
+    
+    //check if word1 is in doc, if it is, check to see if word2 is distance or less after it
+    
+    for(int i=0; i<=row; i++)
+    {
+        
+    }
+    
+    
     
     
 
