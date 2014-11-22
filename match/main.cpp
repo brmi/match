@@ -275,14 +275,14 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
 {
     char newdoc[MAX_WORD_LENGTH_DOC +1];
     
+    
+    
     for(int i=0; i<MAX_WORD_LENGTH_DOC+1; i++)
     {
         if(document[i]=='\0')
             break;
         newdoc[i]=document[i];
     }
-    
-    
     
     //now change elements in array so there are only alphabetic characters and spaces
     
@@ -485,31 +485,6 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
         }
     }else
     {
-        //wanna put newdoc & finaldoc back to empty doc...
-        
-        row=0;      //row of final doc
-        indexf=0;    //index of final doc
-        
-        while(row<MAX_WORD_LENGTH_DOC+1)
-        {
-            if(!strcmp(finalDoc[row],""))
-                break;
-            finalDoc[row][indexf]='\0';
-            row++;
-            
-        }
-        
-        
-        row=0;
-        
-        while(row<length)
-        {
-            if(newdoc[row]=='\0')
-                break;
-            newdoc[row]='\0';
-            row++;
-        }
-    
        return match;
     }
 
