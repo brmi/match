@@ -29,12 +29,12 @@ int main()
     
     int test1dist[TEST1_NCRITERIA] = {2, 4, 1, 13};
     
-    char test1w1[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"mad", "deranged", "nerfarious", "have"};
+    char test1w1[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"mad", "deranged", "nefarious", "have"};
     
     char test1w2[TEST1_NCRITERIA][MAX_WORD_LENGTH+1] = {"scientist", "robot", "plot", "mad"};
 
     
-    cout<<determineQuality(test1dist, test1w1, test1w2,TEST1_NCRITERIA, "  That plot: NEFARIOUS!");
+    cout<<determineQuality(test1dist, test1w1, test1w2,TEST1_NCRITERIA, "Two mad scientists suffer from deranged-robot fever.");
 }
 
 
@@ -387,14 +387,14 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     {
        //check if word1 is in doc, if it is, check to see if word2 is distance or less after it
         //w2 appears distance or fewer words before or after w1
-        
-      
         if(!strcmp(word1[q],finalDoc[i]))
         {
             i++;
             distancebtwn++;
             while(q<=row)
             {
+                if(i>row)
+                    break;
                 if(!strcmp(word2[q],finalDoc[i]))
                 {
                     if(distancebtwn>0 && distancebtwn<=distance[q])
@@ -412,16 +412,65 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
                 }
             }
         }else
+        {
+        i++;
+        if(i>row && q!=length)
+            {
+                i=0;
+                q++;
+                distancebtwn=0;
+            }
+        }
+    }
+
+
+    i=0;
+    q=0;
+    
+    if (match==0)
+    {
+        while (i<=row)
+        {
+            if (!strcmp(word2[q],finalDoc[i]))
+            {
+                i++;
+                distancebtwn++;
+                while(q<=row)
+                {
+                    if(i>row)
+                        break;
+                    if(!strcmp(word1[q],finalDoc[i]))
+                    {
+                        if(distancebtwn>0 && distancebtwn<=distance[q])
+                        {
+                            match++;
+                            q++;
+                            i++;
+                            distancebtwn=0;
+                            break;
+                        }
+                    }else
+                    {
+                        i++;
+                        distancebtwn++;
+                    }
+                }
+            }else
             {
                 i++;
                 if(i>row && q!=length)
                 {
                     i=0;
                     q++;
+                    distancebtwn=0;
                 }
+                
             }
         }
-           
+    }else
+        return match;
+
+    
 return match;
     
 }
