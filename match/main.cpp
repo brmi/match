@@ -4,12 +4,12 @@
 //  Created by desiree on 11/18/14.
 //  Copyright (c) 2014 desiree. All rights reserved.
 //
-
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <cstring>
 #include <cctype>
 #include <cassert>
-#define _CRT_SECURE_NO_WARNINGS
+
 using namespace std;
 
 const int MAX_WORD_LENGTH=20;
@@ -36,25 +36,39 @@ int main()
         "scientist", "robot",    "plot",      "mad"
     };
     
-    determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
-                            "st a deranged evil giant robot.");
-    determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
-                            "st    a deranged robot.");
-    /*
+    
+    
+     assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+     "The mad UCLA scientist unleashed a deranged evil giant robot.") == 2);
+     
+     cerr<<"1"<<endl;
+     
+     assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+     "mad UCLA scientist unleashed    a deranged robot.") == 2);
+     
+     cerr<<"2"<<endl;
+     
+    
     assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
-                            "The mad UCLA scientist unleashed a deranged evil giant robot.") == 2);
-    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
-                            "The mad UCLA scientist unleashed    a deranged robot.") == 2);
-    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
-                            "**** 2014 ****") == 0);
+    "**** 2014 ****") == 0);
+    
+    cerr<<"3"<<endl;
+    
     assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
                             "  That plot: NEFARIOUS!") == 1);
-    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
-                            "deranged deranged robot deranged robot robot") == 1);
-    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
-                            "Two mad scientists suffer from deranged-robot fever.") == 0);
+    
+    cerr<<"4"<<endl;
+    
+     assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+     "deranged deranged robot deranged robot robot") == 1);
+     
+     cerr<<"5"<<endl;
+     
+     assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+     "Two mad scientists suffer from deranged-robot fever.") == 0);
+     
     cout << "All tests succeeded" << endl;
-     */
+    
 }
 
 
@@ -271,21 +285,22 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
 int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1],
                      const char word2[][MAX_WORD_LENGTH+1], int nRules, const char document[])
 {
-    char newdoc[MAX_WORD_LENGTH_DOC +1];
-    char finalDoc[MAX_WORD_LENGTH_DOC][MAX_WORD_LENGTH_DOC+1]; //put words into this doc
+    
+    char newdoc[MAX_WORD_LENGTH_DOC +1]={0};
+    char finalDoc[MAX_WORD_LENGTH_DOC][MAX_WORD_LENGTH_DOC+1]={0}; //put words into this doc
+    
     int length=strlen(document);
     
     //need to clear out newdoc...
-    
-    int row1=0;
-    
-    while(row1<length)
-    {
-        if(newdoc[row1]=='\0')
-            break;
-        
-        newdoc[row1]='\0';
-    }
+    /*
+     int row1=0;
+     
+     while(row1<length)
+     {
+     newdoc[row1]='\0';
+     row1++;
+     }
+     */
     
     cerr<<endl<<"new doc after clear"<<endl;
     for(int i=0; i<length; i++)
@@ -323,8 +338,14 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
         if(t==length)
         {
             break;
-        }
-        if (newdoc[t]==' ')
+        }if(newdoc[0]==' ')
+        {
+            for(int g=0; g<length; g++)
+            {
+                newdoc[g]=newdoc[g+1];
+                
+            }
+        }else if (newdoc[t]==' ')
         {
             numSpaces++;
             if(numSpaces>=1 && prevSpace==1)
@@ -332,8 +353,10 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
                 for(int g=t; g<length; g++)
                 {
                     newdoc[g]=newdoc[g+1];
+                    
                 }
-                numSpaces=0;
+                //length--;
+                numSpaces=1;
                 prevSpace=1;
                 t--;
             }prevSpace=1;
@@ -381,7 +404,7 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     
     //now want to put words into new array, one word at a time.
     
-    /*
+    
     
     int h=0;        //first wanna ignore any spaces in the beginning
     while(h<length)
@@ -391,7 +414,7 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
         else
             break;
     }
-    */
+    
     
     
     //go through each character, if it gets to a space and the word before was a letter, that is a word.
@@ -404,17 +427,18 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     int indexf=0;    //index of final doc
     
     //to clear out old array
+    /*
+     while(row<MAX_WORD_LENGTH_DOC+1)
+     {
+     if(!strcmp(finalDoc[row],""))
+     break;
+     strcpy(finalDoc[row],"");
+     row++;
+     
+     }
+     */
     
-    while(row<MAX_WORD_LENGTH_DOC+1)
-    {
-        if(!strcmp(finalDoc[row],""))
-            break;
-        strcpy(finalDoc[row],"");
-        row++;
-        
-    }
-    
-    int h=0;
+    h=0;
     
     while(h<length)
     {
@@ -438,6 +462,8 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     cerr<<endl<<endl<<"final doc"<<endl;
     for(int i=0; i<length; i++)
     {
+        if(!strcmp(finalDoc[i],""))
+            break;
         cerr<<finalDoc[i]<<" ";
     }
     
