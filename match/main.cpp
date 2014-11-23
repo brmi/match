@@ -1,4 +1,3 @@
-//
 //  main.cpp
 //  match
 //
@@ -37,28 +36,25 @@ int main()
         "scientist", "robot",    "plot",      "mad"
     };
     
-    //assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
-                            //"The mad UCLA scientist unleashed a deranged evil giant robot.") == 2);
-
-    
-    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
-                           "The mad UCLA scientist unleashed    a deranged robot.") == 2);
-
-   
-    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,"**** 2014 ****") == 0);
-    
-    
-    //assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,"  That plot: NEFARIOUS!") == 1);
-    
+    determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            "st a deranged evil giant robot.");
+    determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            "st    a deranged robot.");
     /*
     assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            "The mad UCLA scientist unleashed a deranged evil giant robot.") == 2);
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            "The mad UCLA scientist unleashed    a deranged robot.") == 2);
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            "**** 2014 ****") == 0);
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            "  That plot: NEFARIOUS!") == 1);
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
                             "deranged deranged robot deranged robot robot") == 1);
-   
-    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA, "Two mad scientists suffer from deranged-robot fever.") == 0);
-    */
-    
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            "Two mad scientists suffer from deranged-robot fever.") == 0);
     cout << "All tests succeeded" << endl;
-     
+     */
 }
 
 
@@ -152,7 +148,7 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
     }
     
     //check words from different arrays now
-
+    
     int i=0;
     int y=1;
     int removew1=0; //counter if it removed word1
@@ -164,46 +160,46 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
             break;
         while(y<numRules)
         {
-        if((!strcmp(word1[i],word1[y]) || !strcmp(word1[i],word2[y])) && (!strcmp(word2[i],word2[y])|| !strcmp(word2[i],word1[y]))) //if words are equal
-        {
-            if(distance[i]>=distance[y]) //if distance of word1 rule > distance of word2 rule
+            if((!strcmp(word1[i],word1[y]) || !strcmp(word1[i],word2[y])) && (!strcmp(word2[i],word2[y])|| !strcmp(word2[i],word1[y]))) //if words are equal
             {
-                
-                //remove word2 rule
-                
-                int p=y+1;
-                for (int k=y; k<numRules; k++)
+                if(distance[i]>=distance[y]) //if distance of word1 rule > distance of word2 rule
                 {
-                    strcpy(word1[k],word1[p]);
                     
-                    strcpy(word2[k],word2[p]);
-                    p++;
+                    //remove word2 rule
+                    
+                    int p=y+1;
+                    for (int k=y; k<numRules; k++)
+                    {
+                        strcpy(word1[k],word1[p]);
+                        
+                        strcpy(word2[k],word2[p]);
+                        p++;
+                    }
+                    
+                    for(int m=y; m<numRules; m++)
+                    {
+                        distance[m]=distance[m+1];
+                    }
+                    numRules--;
+                    removew2=1;
+                }else
+                {   //remove word1 rule
+                    int p=i+1;
+                    for (int k=i; k<numRules; k++)
+                    {
+                        strcpy(word1[k],word1[p]);
+                        
+                        strcpy(word2[k],word2[p]);
+                        p++;
+                    }
+                    for(int m=i; m<numRules; m++)
+                    {
+                        distance[m]=distance[m+1];
+                    }
+                    numRules--;
+                    removew1=1;
                 }
-                
-                for(int m=y; m<numRules; m++)
-                {
-                    distance[m]=distance[m+1];
-                }
-                numRules--;
-                removew2=1;
             }else
-            {   //remove word1 rule
-                int p=i+1;
-                for (int k=i; k<numRules; k++)
-                {
-                    strcpy(word1[k],word1[p]);
-                    
-                    strcpy(word2[k],word2[p]);
-                    p++;
-                }
-                for(int m=i; m<numRules; m++)
-                {
-                    distance[m]=distance[m+1];
-                }
-                numRules--;
-                removew1=1;
-            }
-        }else
             {
                 if(y==numRules-1)
                 {
@@ -217,16 +213,16 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
                     break;
                 }
             }
-                if(removew1==1)
-                {
-                    break;
-                }
-                if(removew2==1)
-                {
-                    break;
-                }
-                y++;
+            if(removew1==1)
+            {
+                break;
             }
+            if(removew2==1)
+            {
+                break;
+            }
+            y++;
+        }
         if(removew1==1)
         {
             i=0;
@@ -269,7 +265,7 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
         }
     }
     return numRules;
-
+    
 }
 
 int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1],
@@ -279,7 +275,28 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     char finalDoc[MAX_WORD_LENGTH_DOC][MAX_WORD_LENGTH_DOC+1]; //put words into this doc
     int length=strlen(document);
     
-
+    //need to clear out newdoc...
+    
+    int row1=0;
+    
+    while(row1<length)
+    {
+        if(newdoc[row1]=='\0')
+            break;
+        
+        newdoc[row1]='\0';
+    }
+    
+    cerr<<endl<<"new doc after clear"<<endl;
+    for(int i=0; i<length; i++)
+        
+    {
+        if(newdoc[i]=='\0')
+            break;
+        cerr<<newdoc[i];
+    }
+    
+    
     for(int i=0; i<MAX_WORD_LENGTH_DOC+1; i++)
     {
         if(document[i]=='\0')
@@ -287,34 +304,60 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
         newdoc[i]=document[i];
     }
     
-    //now change elements in array so there are only alphabetic characters and spaces
+    cerr<<"original"<<endl;
     
+    for(int i=0; i<length; i++)
+    {
+        cerr<<newdoc[i];
+    }
     
+    //now change elements in array so there are only alphabetic characters and spaces (one space btwn)
     
-   //want to remove characters that are not alphabetic
-    
+    int prevSpace=0;
     int t=0;
+    int numSpaces=0; //want to keep track of number of spaces. one want one between each word
     while(t<length)
     {
-      if(t==length)
-      {
-          break;
-      }
-    if (newdoc[t]==' ')
+        if(newdoc[t]=='\0')
+            break;
+        if(t==length)
         {
-            if(t==length)
-            {
-                break;
-            }
+            break;
         }
-        else if(!isalpha(newdoc[t]))
+        if (newdoc[t]==' ')
         {
-          newdoc[t]='\0';
+            numSpaces++;
+            if(numSpaces>=1 && prevSpace==1)
+            {
+                for(int g=t; g<length; g++)
+                {
+                    newdoc[g]=newdoc[g+1];
+                }
+                numSpaces=0;
+                prevSpace=1;
+                t--;
+            }prevSpace=1;
+        }
+        else
+        {
+            prevSpace=0;
+        }if(!isalpha(newdoc[t])&& newdoc[t]!=' ')
+        {
+            if(t==length-1)
+                break;
+            int p=t+1;
+            for (int k=t; k<length; k++)
+            {
+                newdoc[k]=newdoc[p];
+                p++;
+            }
+            
+            t--;
         }
         t++;
     }
- 
-
+    
+    
     
     
     //now I wanna transform every uppercase letter into lowercase
@@ -323,11 +366,12 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     
     for (int i=0; i<length; i++)
     {
-        if(newdoc[i]=='\0')
-            break;
         newdoc[i]=tolower(newdoc[i]);
         
     }
+    
+    cerr<<endl;
+    cerr<<endl<<"newdoc"<<endl;
     
     for(int i=0; i<length; i++)
     {
@@ -337,6 +381,7 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     
     //now want to put words into new array, one word at a time.
     
+    /*
     
     int h=0;        //first wanna ignore any spaces in the beginning
     while(h<length)
@@ -346,25 +391,30 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
         else
             break;
     }
-    
+    */
     
     
     //go through each character, if it gets to a space and the word before was a letter, that is a word.
     //put that word into new 2d array, holding c strings.
     //problem... O:! .. final doc has old stuff in it!!! wtf man!!!
-  
+    
     int alphaBefore=0; //this variable is to check that the character before is a letter
     
     int row=0;      //row of final doc
     int indexf=0;    //index of final doc
     
+    //to clear out old array
     
     while(row<MAX_WORD_LENGTH_DOC+1)
     {
+        if(!strcmp(finalDoc[row],""))
+            break;
         strcpy(finalDoc[row],"");
         row++;
         
     }
+    
+    int h=0;
     
     while(h<length)
     {
@@ -378,17 +428,20 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
             alphaBefore=1;
         }else if(alphaBefore==1)
         {
+            
             row++;
             indexf=0;
             h++;
         }
     }
     
-    
-    for(int i=0; i<row; i++)
+    cerr<<endl<<endl<<"final doc"<<endl;
+    for(int i=0; i<length; i++)
     {
         cerr<<finalDoc[i]<<" ";
     }
+    
+    cerr<<endl<<endl;
     
     
     //now just compare distances! and look for match rules c:
@@ -402,7 +455,7 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     
     while(i<=row)
     {
-       //check if word1 is in doc, if it is, check to see if word2 is distance or less after it
+        //check if word1 is in doc, if it is, check to see if word2 is distance or less after it
         //w2 appears distance or fewer words before or after w1
         if(!strcmp(word1[q],finalDoc[i]))
         {
@@ -430,8 +483,8 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
             }
         }else
         {
-        i++;
-        if(i>row && q!=length)
+            i++;
+            if(i>row && q!=length)
             {
                 i=0;
                 q++;
@@ -439,8 +492,8 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
             }
         }
     }
-
-
+    
+    
     i=0;
     q=0;
     distancebtwn=0;
@@ -487,14 +540,9 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
         }
     }else
     {
-       return match;
+        return match;
     }
-
-return match;
+    
+    return match;
     
 }
-
-
-
-
-
