@@ -37,37 +37,70 @@ int main()
     };
     
     
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            "         mad scientist") == 1);
+    
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            "  **  mad scientist") == 1);
+    
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            "   ***  **  the mad wonky lemon scientist") == 0);
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                           "   ***  **  the mad wonky lemon scientist squeeb") == 0);
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            "   ***  **  the scientist wonky lemon mad squeeb") == 0);
+    
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                           "   ***  **  the scientist wonky lemon mad have scientist with a nefarious plot mad") == 3 );
+    //assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            //"   ***  **  the scientist wonky lemon mad have scientist with a nefarious plot mad deranged hi hi robot") == 4 );
+    
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                           "   ***  **  the scientist wonky lemon have mad scientist with a nefarious plot mad") == 3 );
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            "   ***  **  the scientist wonky lemon have mad scientist with a nefarious plot mad***") == 3 );
+    
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            "deranged robot deranged deranged robot robot") == 1 );
+    
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            "") == 0 );
+    
+    
+    
     
      assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
      "The mad UCLA scientist unleashed a deranged evil giant robot.") == 2);
      
-     cerr<<"1"<<endl;
+    
      
      assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
      "mad UCLA scientist unleashed    a deranged robot.") == 2);
      
-     cerr<<"2"<<endl;
+    
      
     
     assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
     "**** 2014 ****") == 0);
     
-    cerr<<"3"<<endl;
+    
     
     assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
                             "  That plot: NEFARIOUS!") == 1);
     
-    cerr<<"4"<<endl;
+    
     
      assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
      "deranged deranged robot deranged robot robot") == 1);
      
-     cerr<<"5"<<endl;
+    
      
      assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
      "Two mad scientists suffer from deranged-robot fever.") == 0);
+    
      
     cout << "All tests succeeded" << endl;
+    
     
 }
 
@@ -80,8 +113,6 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
     
     //first wanna check if distance is >0
     //if it's not greater than 0, take out that whole rule!
-    //strcpy(destination, source);
-    //this works
     
     for (int i=0; i<numRules; i++)
     {
@@ -252,8 +283,6 @@ int standardizeRules(int distance[], char word1[][MAX_WORD_LENGTH+1], char word2
     }
     
     //take out entire rule if word is empty string
-    //make sure stuff doesn't go out of index O:!!!
-    //this works
     
     
     for(int i=0; i<numRules; i++)
@@ -291,26 +320,6 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     
     int length=strlen(document);
     
-    //need to clear out newdoc...
-    /*
-     int row1=0;
-     
-     while(row1<length)
-     {
-     newdoc[row1]='\0';
-     row1++;
-     }
-     */
-    
-    cerr<<endl<<"new doc after clear"<<endl;
-    for(int i=0; i<length; i++)
-        
-    {
-        if(newdoc[i]=='\0')
-            break;
-        cerr<<newdoc[i];
-    }
-    
     
     for(int i=0; i<MAX_WORD_LENGTH_DOC+1; i++)
     {
@@ -345,6 +354,7 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
                 newdoc[g]=newdoc[g+1];
                 
             }
+            t=0;
         }else if (newdoc[t]==' ')
         {
             numSpaces++;
@@ -419,24 +429,12 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     
     //go through each character, if it gets to a space and the word before was a letter, that is a word.
     //put that word into new 2d array, holding c strings.
-    //problem... O:! .. final doc has old stuff in it!!! wtf man!!!
     
     int alphaBefore=0; //this variable is to check that the character before is a letter
     
     int row=0;      //row of final doc
     int indexf=0;    //index of final doc
     
-    //to clear out old array
-    /*
-     while(row<MAX_WORD_LENGTH_DOC+1)
-     {
-     if(!strcmp(finalDoc[row],""))
-     break;
-     strcpy(finalDoc[row],"");
-     row++;
-     
-     }
-     */
     
     h=0;
     
@@ -470,7 +468,7 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     cerr<<endl<<endl;
     
     
-    //now just compare distances! and look for match rules c:
+    //now just compare distances! and look for match rules
     //work with finalDoc
     
     int distancebtwn=0; //distance between w1 and w2
@@ -478,9 +476,15 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
     int q=0;    //which rule i'm on
     int i=0;
     int match=0;
+    int tempMatch=0;
     
     while(i<=row)
     {
+        if(tempMatch>=1)
+        {
+            i=0;
+            tempMatch=0;
+        }
         //check if word1 is in doc, if it is, check to see if word2 is distance or less after it
         //w2 appears distance or fewer words before or after w1
         if(!strcmp(word1[q],finalDoc[i]))
@@ -496,11 +500,19 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
                     if(distancebtwn>0 && distancebtwn<=distance[q])
                     {
                         match++;
+                        tempMatch=1;
                         q++;
                         i++;
                         distancebtwn=0;
                         break;
+                    }else
+                    {
+                        i=0;
+                        q++;
+                        distancebtwn=0;
+                        
                     }
+                    
                 }else
                 {
                     i++;
@@ -545,6 +557,12 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
                             i++;
                             distancebtwn=0;
                             break;
+                        }else
+                        {
+                            i=0;
+                            q++;
+                            distancebtwn=0;
+                            
                         }
                     }else
                     {
