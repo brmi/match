@@ -52,8 +52,9 @@ int main()
     
     assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
                            "   ***  **  the scientist wonky lemon mad have scientist with a nefarious plot mad") == 3 );
-    //assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
-                            //"   ***  **  the scientist wonky lemon mad have scientist with a nefarious plot mad deranged hi hi robot") == 4 );
+    
+    assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
+                            "   ***  **  the scientist wonky lemon mad have scientist with a nefarious plot mad deranged hi hi robot") == 4 );
     
     assert(determineQuality(test1dist, test1w1, test1w2, TEST1_NCRITERIA,
                            "   ***  **  the scientist wonky lemon have mad scientist with a nefarious plot mad") == 3 );
@@ -497,7 +498,15 @@ int determineQuality(const int distance[], const char word1[][MAX_WORD_LENGTH+1]
                     break;
                 if(!strcmp(word2[q],finalDoc[i]))
                 {
-                    if(distancebtwn>0 && distancebtwn<=distance[q])
+                    if(i==row && distancebtwn>0 && distancebtwn<=distance[q])
+                    {
+                        match++;
+                        tempMatch=1;
+                        q++;
+                        distancebtwn=0;
+                        i=0;
+                        break;
+                    }else if(distancebtwn>0 && distancebtwn<=distance[q])
                     {
                         match++;
                         tempMatch=1;
